@@ -26,6 +26,8 @@
 
 using bspxentries_t = std::unordered_map<std::string, std::vector<uint8_t>>;
 
+#define TEST_HL1_CONTENTS
+
 struct bspdata_t
 {
     const bspversion_t *version, *loadversion;

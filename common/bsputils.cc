@@ -207,6 +207,57 @@ const qvec3f &GetSurfaceVertexPoint(const mbsp_t *bsp, const mface_t *f, int v)
     return bsp->dvertexes[Face_VertexAtIndex(bsp, f, v)];
 }
 
+#ifdef HL1_TEST_CONTENTS
+static int TextureName_Contents(const char *texname)
+{
+    if (!Q_strncasecmp(texname, "sky", 3))
+        return CONTENTS_SKY;
+	else if (texname[0] == '*') // don't check liquids if not prefixed as such
+	{
+		if (!Q_strncasecmp(texname, "*lava", 5))
+        	return CONTENTS_LAVA;
+    	else if (!Q_strncasecmp(texname, "*slime", 6))
+      		return CONTENTS_SLIME;
+		else
+			return CONTENTS_WATER;
+	}
+	else if (texname[0] == '!') // don't check liquids if not prefixed as such
+	{
+		if (!Q_strncasecmp(texname, "!lava", 5))
+        	return CONTENTS_LAVA;
+    	else if (!Q_strncasecmp(texname, "!slime", 6))
+      		return CONTENTS_SLIME;
+		// Quake 2 currents
+		// TODO - warning in verbose mode if not HL1 (treated as regular water in Q1)
+		else if (!Q_strncasecmp(texname, "!cur_0", 6))
+			return CONTENTS_CURRENT_0;
+		else if (!Q_strncasecmp(texname, "!cur_90", 7))
+			return CONTENTS_CURRENT_90;
+		else if (!Q_strncasecmp(texname, "!cur_180", 8))
+			return CONTENTS_CURRENT_180;
+		else if (!Q_strncasecmp(texname, "!cur_270", 8))
+			return CONTENTS_CURRENT_270;
+		else if (!Q_strncasecmp(texname, "!cur_up", 7))
+			return CONTENTS_CURRENT_UP;
+		else if (!Q_strncasecmp(texname, "!cur_dwn", 8))
+			return CONTENTS_CURRENT_DOWN;
+		else
+			return CONTENTS_WATER;
+	}
+	else if (texname[0] == '@')
+	{
+		// TODO - warning if not HL1 (invalid outside of some source ports)
+		return CONTENTS_TRANSLUCENT;
+	}
+	else if (!Q_strncasecmp(texname, "translucent", 11))
+	{
+		// TODO - only check if HL1, as it might conflict with existing texture names in other games
+		return CONTENTS_TRANSLUCENT;
+	}
+	else
+	    return CONTENTS_SOLID;
+}
+#else
 static int TextureName_Contents(const char *texname)
 {
     if (!Q_strncasecmp(texname, "sky", 3))
@@ -220,6 +271,7 @@ static int TextureName_Contents(const char *texname)
 
     return CONTENTS_SOLID;
 }
+#endif
 
 // FIXME: name is misleading since we return true for opaque Q2 liquids
 bool // mxd

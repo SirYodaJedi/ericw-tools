@@ -91,8 +91,49 @@ struct dmodelq1_t
     void stream_read(std::istream &s);
 };
 
-// Q1 contents
+#ifdef TEST_HL1_CONTENTS
+// Q1 contents; also HL1
+enum q1_contents_t : int32_t
+{
+    CONTENTS_EMPTY = -1,
+    CONTENTS_SOLID = -2, // default contents. All bmodels should use this unless -bmodelcontents is used
+    CONTENTS_WATER = -3, // "*" or "!" prefix, unless one of the below
+    CONTENTS_SLIME = -4, // "*slime" or "!slime" prefix
+    CONTENTS_LAVA = -5, // "*lava" or "!lava" prefix
+    CONTENTS_SKY = -6, // "sky" prefix
 
+#if 0 // comment out while working it out
+    CONTENTS_MIN_Q1 = CONTENTS_SKY,
+#endif
+
+	CONTENTS_ORIGIN = -7, // "volumetric light" if applied at runtime in GoldSrc; gets _mirrorinside-eque behavoir
+	CONTENTS_CLIP = -8, // unused?
+
+	// Quake 2 currents
+	// converted to WATER at runtime by WinQuake
+	// functions like Q2 in GoldSrc
+	CONTENTS_CURRENT_0 = -9, // "!cur_0" prefix
+	CONTENTS_CURRENT_90 = -10, // "!cur_90" prefix
+	CONTENTS_CURRENT_180 = -11, // "!cur_180" prefix
+	CONTENTS_CURRENT_270 = -12, // "!cur_270" prefix
+	CONTENTS_CURRENT_UP = -13, // "!cur_up" prefix
+	CONTENTS_CURRENT_DOWN = -14, // "!cur_dwn" prefix
+
+#if 0 // comment out while working it out
+	CONTENTS_MIN = CONTENTS_CURRENT_DOWN, // all contents beyond this point are HL1-exclusive
+#endif
+
+	// misleading name. Like Water, but never solid. Native version of func_illusionary_visblocker
+	CONTENTS_TRANSLUCENT = -15, // "@" prefix or named "translucent"
+
+#if 0 // comment out while working it out
+	CONTENTS_MIN_HL1 = CONTENTS_TRANSLUCENT
+#else
+	CONTENTS_MIN = CONTENTS_TRANSLUCENT
+#endif
+};
+#else
+// Q1 contents
 enum q1_contents_t : int32_t
 {
     CONTENTS_EMPTY = -1,
@@ -104,6 +145,7 @@ enum q1_contents_t : int32_t
 
     CONTENTS_MIN = CONTENTS_SKY
 };
+#endif
 
 constexpr static int BSPXBRUSHES_CONTENTS_CLIP = -8;
 

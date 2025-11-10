@@ -527,7 +527,7 @@ static bool IsNoExpandName(const char *name)
  */
 static bool IsSpecialName(const char *name, bool allow_litwater)
 {
-    if (name[0] == '*' && !allow_litwater)
+    if (((name[0] == '*') || (name[0] == '!')) && !allow_litwater)
         return true;
     if (!Q_strncasecmp(name, "sky", 3) && !qbsp_options.splitsky.value())
         return true;
