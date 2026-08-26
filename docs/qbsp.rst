@@ -321,6 +321,11 @@ Options
    For supported game code only: triggers will not write a model out,
    and will instead just write out their mins/maxs.
 
+.. option:: -nodrawtriggers
+
+   Treat triggers as if they were textured with SKIP, reducing vertex count.
+   Unlike -notriggermodels, this does not require supported game code.
+   
 .. option:: -notex
 
    Write only placeholder textures, to depend upon replacements. This

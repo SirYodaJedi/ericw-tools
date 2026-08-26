@@ -544,6 +544,8 @@ qbsp_settings::qbsp_settings()
           "add a path to the wad search paths; wads found in xwadpath's will not be embedded, otherwise they will be embedded (if not -notex)"},
       notriggermodels{this, "notriggermodels", false, &common_format_group,
           "for supported game code only: triggers will not write a model\nout, and will instead just write out their mins/maxs."},
+      nodrawtriggers{this, "nodrawtriggers", false, &common_format_group,
+          "Treat triggers as if they were textured with SKIP, reducing vertex count. Unlike -notriggermodels, this does not require supported game code."},
       aliasdefs{this, "aliasdef", "\"path/to/file.def\" <multiple allowed>", &map_development_group,
           "path to an alias definition file, which can transform entities in the .map into other entities."},
       texturedefs{this, "texturedefs", "\"path/to/file.def\" <multiple allowed>", &map_development_group,

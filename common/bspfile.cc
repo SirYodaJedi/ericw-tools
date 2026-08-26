@@ -201,6 +201,13 @@ public:
         /* don't save lightmaps for "skip" texture */
         if (!Q_strcasecmp(texname, "skip"))
             return false;
+        
+        /* if in HL1 mode, don't save lightmaps for "aaa" prefix 
+        base Half-Life only has "aaatrigger", but mods like Opposing Force and Condition Zero
+        add other trigger textures, such as "aaa_hurt" and "aaa_push"
+        */
+        if (allows_hl_contents && (string_istarts_with(texname, "aaa")) )
+            return false;
 
         return !(flags.native_q1 & TEX_SPECIAL);
     }
@@ -210,7 +217,14 @@ public:
         /* don't save lightmaps for "trigger" texture */
         if (!Q_strcasecmp(texname, "trigger"))
             return false;
-
+        
+        /* if in HL1 mode, don't save lightmaps for "aaa" prefix 
+        base Half-Life only has "aaatrigger", but mods like Opposing Force and Condition Zero
+        add other trigger textures, such as "aaa_hurt" and "aaa_push"
+        */
+        if (allows_hl_contents && (string_istarts_with(texname, "aaa")) )
+            return false;
+        
         return true;
     }
 
