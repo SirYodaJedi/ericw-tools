@@ -513,7 +513,7 @@ static bool IsSkipName(const char *name)
         return true;
     if (!Q_strcasecmp(name, "null")) // zhlt compat
         return true;
-    if (nodrawtriggers)
+    if (qbsp_options.nodrawtriggers.value())
     {
         if (!Q_strcasecmp(name, "trigger"))
             return true;
