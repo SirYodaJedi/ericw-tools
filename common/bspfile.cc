@@ -195,7 +195,7 @@ public:
         const surfflags_t &flags, const char *texname, bool light_nodraw, bool lightgrid_enabled) const override
     {
         /* don't save lightmaps for "trigger" texture */
-        if (!Q_strcasecmp(texname, "trigger"))
+        if (string_istarts_with(texname, "trigger"))
             return false;
 
         /* don't save lightmaps for "skip" texture */
@@ -215,7 +215,7 @@ public:
     bool surf_is_emissive(const surfflags_t &flags, const char *texname) const override
     {
         /* don't save lightmaps for "trigger" texture */
-        if (!Q_strcasecmp(texname, "trigger"))
+        if (string_istarts_with(texname, "trigger"))
             return false;
         
         /* if in HL1 mode, don't save lightmaps for "aaa" prefix 

@@ -513,9 +513,9 @@ static bool IsSkipName(const char *name)
         return true;
     if (!Q_strcasecmp(name, "null")) // zhlt compat
         return true;
-    if (qbsp_options.nodrawtriggers.value())
+    if (!qbsp_options.keeptriggerfaces.value())
     {
-        if (!Q_strcasecmp(name, "trigger"))
+        if (string_istarts_with(name, "trigger"))
             return true;
         if (game->allows_hl_contents && string_istarts_with(name, "aaa")) // aaatrigger, aaa_hurt, etc.
             return true;

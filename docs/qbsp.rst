@@ -321,10 +321,12 @@ Options
    For supported game code only: triggers will not write a model out,
    and will instead just write out their mins/maxs.
 
-.. option:: -nodrawtriggers
+.. option:: -keeptriggerfaces
 
-   Treat triggers as if they were textured with SKIP, reducing vertex count.
-   Unlike -notriggermodels, this does not require supported game code.
+   Keep trigger brush faces, in the compiled BSP. Normally they are
+   stripped, to reduce vertex count.
+   
+   No effect if `-notriggermodels` is used.
    
 .. option:: -notex
 
